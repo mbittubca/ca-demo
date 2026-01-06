@@ -1132,6 +1132,15 @@ a:hover {
   align-items: center;
 }
 
+/* Reversed layout - image on right, text on left (desktop) */
+.about-content-reverse {
+  direction: rtl;
+}
+
+.about-content-reverse>* {
+  direction: ltr;
+}
+
 .about-image {
   height: 500px;
   background: var(--bg-glass);
@@ -1351,18 +1360,16 @@ a:hover {
   }
 
   .about-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 40px;
   }
 
-  .about-content[style*="row-reverse"] {
-    display: flex;
-    flex-direction: column;
+  .about-content-reverse {
+    direction: ltr;
   }
 
   .about-image {
     height: 350px;
-    order: -1;
   }
 
   .about-text {
@@ -1525,13 +1532,15 @@ a:hover {
   }
 
   .hero-buttons {
-    flex-direction: column;
+    flex-direction: column !important;
     width: 100%;
     gap: 15px;
+    align-items: center;
   }
 
   .hero-buttons .btn {
     width: 100%;
+    max-width: 300px;
     justify-content: center;
   }
 
@@ -1811,6 +1820,63 @@ a:hover {
 
   .cta-section p {
     font-size: 0.95rem;
+  }
+
+  /* Override inline flex/grid styles for proper mobile layout */
+  .cta-section .hero-buttons,
+  [class*="hero-buttons"] {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* About content sections - force single column layout */
+  .about-content {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .about-content-reverse {
+    direction: ltr !important;
+  }
+
+  /* Force all inline grid styles to single column */
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Partner cards on team page */
+  .services-grid[style*="repeat(2, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Inline flex containers that should stack */
+  [style*="display: flex"][style*="gap"] {
+    flex-wrap: wrap;
+  }
+
+  /* Blog featured section badge row */
+  [style*="display: flex"][style*="margin-bottom: 20px"] {
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+
+  /* Contact page quick contact grid */
+  .services-grid[style*="repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Newsletter form */
+  form[style*="display: flex"][style*="justify-content: center"] {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  form[style*="display: flex"] input[type="email"] {
+    width: 100% !important;
+    min-width: unset !important;
   }
 
   /* Page Header */
